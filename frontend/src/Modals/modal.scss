@@ -1,0 +1,26 @@
+.ant-modal .ant-modal-content {
+  background-color: black !important;
+}
+.ant-modal .ant-modal-title{
+    background-color: black !important;
+    color: #00f2c2 !important;
+}
+
+.ant-modal .ant-modal-close-x {
+    color: #00f2c2 !important;
+}
+
+.custom-input {
+    background-color: #2e2e2e !important;
+    color: white !important;
+    border-color: black !important;
+}
+
+.custom-label .ant-form-item-label >label{
+    color: white !important;
+}
+
+.custom-input::placeholder {
+  color: gray; 
+  opacity: 1; 
+}

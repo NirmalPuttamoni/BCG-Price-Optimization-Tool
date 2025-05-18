@@ -1,0 +1,8 @@
+SECRET_KEY = "your_secret_key"
+ALGORITHM = "HS256"
+DB_USERNAME = "root"
+DB_PASSWORD = "1234"
+DB_HOST = "localhost"
+DB_PORT = "3306"
+DB_NAME = "bcg_db"
+ACCESS_TOKEN_EXPIRE_MINUTES = 50
