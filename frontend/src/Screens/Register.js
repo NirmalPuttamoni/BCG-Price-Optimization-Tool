@@ -1,7 +1,5 @@
 import { Button, Form, Input, message, Select } from "antd";
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import Logo from "../../assets/book-my-show-logo.svg";
 import { RegisterUser } from "../Api/Users";
 import { roles } from "../utils";
 
@@ -14,12 +12,12 @@ const Register = () => {
 
       if (response?.success) {
         //success
-        message.success(response.message);
+        message.success(response.message || "Registration successful");
         form.resetFields();
         navigate("/login");
       } else {
         // error
-        message.error(response.message);
+        message.error(response.message || "Registration failed");
       }
     } catch (error) {
       console.log(error);
