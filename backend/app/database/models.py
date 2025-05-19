@@ -14,7 +14,7 @@ class User(Base):
 class Product(Base):
     __tablename__ = 'products'
     id = Column(Integer, primary_key=True)
-    name = Column(String(100), nullable=False)
+    name = Column(String(100), nullable=False, index=True)
     description = Column(String(255), nullable=True)
     cost_price = Column(Integer, nullable=False)
     selling_price = Column(Integer, nullable=False)
@@ -22,5 +22,6 @@ class Product(Base):
     stock_available = Column(Integer, nullable=False)
     units_sold = Column(Integer, nullable=False)
     customer_rating = Column(Integer, nullable=True)
-    demand_forecast = Column(Integer, nullable=True)
+    demand_forecast = Column(Integer, nullable=True, index=True)
     optimized_price = Column(Integer, nullable=True)
+
