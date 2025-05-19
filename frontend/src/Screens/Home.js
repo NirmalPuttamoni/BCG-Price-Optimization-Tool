@@ -1,15 +1,21 @@
 import { Row, Col } from 'antd';
 import { ArrowRightOutlined, AppstoreAddOutlined, LineChartOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 
 const Home = () => {
 
+    const navigate = useNavigate();
     const userDetails = JSON.parse(localStorage.getItem("user_details"));
     const user_role = userDetails?.role;
 
-    const navigate = useNavigate();
-    const handleClick = (target) => {
+    useEffect(() => {
+        if (!userDetails) {
+            navigate("/login");
+        }
+    }, [navigate, userDetails]);
 
+    const handleClick = (target) => {
         if (user_role === "admin") {
             navigate('/admin');
         } else if (user_role === "buyer") {
@@ -24,10 +30,9 @@ const Home = () => {
                 navigate('/price-optimization');
             }
         }
-
     };
     return (
-        <div className="global-container">
+        <div className="home-page">
             <Row justify="center">
                 <Col span={20}>
                     <div className="container-header">
@@ -41,7 +46,7 @@ const Home = () => {
             </Row>
 
             <Row className="cards-container" justify="center" gutter={24}>
-                <Col span={5}>
+                <Col span={8}>
                     <div className="card">
                         <AppstoreAddOutlined className="icon-size" />
                         <div>
@@ -53,7 +58,7 @@ const Home = () => {
                         <ArrowRightOutlined className="icon-size green-color" onClick={() => handleClick("manage-product")} />
                     </div>
                 </Col>
-                <Col span={5}>
+                <Col span={8}>
                     <div className="card">
                         <LineChartOutlined className="icon-size" />
                         <div>

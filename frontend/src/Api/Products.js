@@ -8,12 +8,12 @@ export const GetAllProducts = async (navigate) => {
         const response = await axiosInstance.get("/api/product/get-products");
         return response.data;
     } catch (error) {
-        console.log("err : ", error?.response);
-        if (error?.response?.status === 401) {
+        console.log("error : ", error?.response);
+        if (error?.response?.status === 401 || error?.response?.status === 403) {
             handleUnauthorized(navigate);
             return;
         }
-        return message.error(error?.response?.data?.message);
+        return error?.response?.data;
     }
 }
 
@@ -22,22 +22,22 @@ export const AddProduct = async (values, navigate) => {
         const response = await axiosInstance.post("/api/product/add-product", values);
         return response.data;
     } catch (error) {
-        console.log("err : ", error?.response?.data);
-        if (error?.response?.status === 401) {
+        console.log("error : ", error?.response?.data);
+        if (error?.response?.status === 401 || error?.response?.status === 403) {
             handleUnauthorized(navigate);
             return;
         }
-        return message.error(error?.response?.data?.message)
+        return error?.response?.data;
     }
 }
 
 export const DeleteProduct = async (id, navigate) => {
     try {
-        const response = await axiosInstance.delete("/api/product/delete-product");
+        const response = await axiosInstance.delete(`/api/product/delete-product/${id}`);
         return response.data;
     } catch (error) {
         console.log(error);
-        if (error?.response?.status === 401) {
+        if (error?.response?.status === 401 || error?.response?.status === 403) {
             handleUnauthorized(navigate);
             return;
         }
@@ -47,11 +47,11 @@ export const DeleteProduct = async (id, navigate) => {
 
 export const UpdateProduct = async (id, navigate) => {
     try {
-        const response = await axiosInstance.put("/api/product/update-product");
+        const response = await axiosInstance.put(`/api/product/update-product/${id}`);
         return response.data;
     } catch (error) {
         console.log(error);
-        if (error?.response?.status === 401) {
+        if (error?.response?.status === 401 || error?.response?.status === 403) {
             handleUnauthorized(navigate);
             return;
         }
@@ -61,10 +61,7 @@ export const UpdateProduct = async (id, navigate) => {
 
 export const handleUnauthorized = (navigate) => {
     localStorage.removeItem("user_details");
-    message.error({
-        message: "Session expired",
-        description: "Please login again",
-    });
+    message.warning("Session expired");
     setTimeout(() => {
         navigate("/login");
     }, 1500);

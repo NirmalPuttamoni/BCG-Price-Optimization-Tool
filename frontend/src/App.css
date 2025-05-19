@@ -37,13 +37,6 @@
   }
 }
 
-.global-container {
-  height: 100vh;
-  /* overflow: hidden; */
-  background-color: black;
-  color: white;
-}
-
 .container-header {
   text-align: center;
   margin-bottom: 40px;
@@ -57,10 +50,9 @@
   background-color: white;
   color: black;
   padding: 20px;
-  height: 350px;
+  height: 320px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -76,6 +68,16 @@
   color: #00f2c2;
 }
 
+
+.home-page {
+  background-color: black;
+  min-height: 100vh;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .login-page {
   background-color: #f3f8ff;

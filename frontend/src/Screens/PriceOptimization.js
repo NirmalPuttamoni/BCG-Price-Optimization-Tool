@@ -5,7 +5,7 @@ import "./createAndManageProduct.scss";
 import { ArrowLeftOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { GetAllProducts } from "../Api/Products";
-import {pricing_optimization_columns} from "../utils";
+import { pricing_optimization_columns } from "../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilteredProducts, setFilteredProductsByCategory, setProducts } from "../Redux/ProductSlice";
 
@@ -18,7 +18,7 @@ const PriceOptimization = () => {
   const [category_options, setCategoryOptions] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const {allProducts, filteredProducts} = useSelector((state) => state.product);
+  const { allProducts, filteredProducts } = useSelector((state) => state.product);
 
   const handleChange = (event) => {
     setCategory(event);
@@ -39,7 +39,7 @@ const PriceOptimization = () => {
 
     const fetchData = async () => {
       try {
-        const response = await GetAllProducts();
+        const response = await GetAllProducts(navigate);
 
         if (response?.success) {
           dispatch(setProducts(response?.products))
@@ -50,7 +50,7 @@ const PriceOptimization = () => {
     };
 
     fetchData();
-  }, []);
+  }, [navigate, dispatch]);
 
   useEffect(() => {
     setCategory("All Categories");
@@ -73,7 +73,7 @@ const PriceOptimization = () => {
     onChange: onSelectChange
   };
   return (
-    <div className="create-and-manage-product">
+    <div className="manage-product-page">
       <Row className="nav-header">
         <Col span={21} className="green-color">
           Price Optimization Tool
@@ -101,7 +101,7 @@ const PriceOptimization = () => {
               Pricing Optimization
             </Col>
             <Col style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-              <Switch defaultChecked onChange={handleSwitchChange} className="custom-switch" size="small"/>
+              <Switch defaultChecked onChange={handleSwitchChange} className="custom-switch" size="small" />
               <span>With Demand Forecast</span>
             </Col>
             <Col>
@@ -141,7 +141,7 @@ const PriceOptimization = () => {
         </Col>
       </Row>
       <div className="table-container">
-        <Table rowKey="id" rowSelection={rowSelection} columns={pricing_optimization_columns} dataSource={filteredProducts} bordered className="table" pagination={{ pageSize: 6 }} />
+        <Table rowKey="id" rowSelection={rowSelection} columns={pricing_optimization_columns} dataSource={filteredProducts} bordered className="table" pagination={{ pageSize: 7 }} />
       </div>
     </div>
   )

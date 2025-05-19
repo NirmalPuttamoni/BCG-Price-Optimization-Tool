@@ -19,7 +19,7 @@ export const LoginUser = async (values) => {
         return response.data;
     } catch (error) {
         console.log("err : ", error?.response?.data);
-        return message.error(error?.response?.data?.message)
+        return error?.response?.data?.message;
     }
 }
 

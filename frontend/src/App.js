@@ -10,15 +10,10 @@ import Register from "./Screens/Register";
 import AdminPage from "./Screens/AdminPage";
 import BuyerPage from "./Screens/BuyerPage";
 import SupplierPage from "./Screens/SupplierPage";
-import LineChart from "./Charts/LineChart";
 
 function App() {
   return (
     <div>
-      {/* <div style={{ width: "600px", margin: "auto" }}>
-      <LineChart />
-      
-    </div> */}
       <Provider store={store}>
         <BrowserRouter>
           <Routes>

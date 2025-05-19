@@ -11,15 +11,16 @@ const Login = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
-    message.success("Login successful");
-
     const onFinish = async (values) => {
         try {
             const response = await LoginUser(values);
+            console.log(response)
             if (response?.success) {
                 message.success(response?.message || "Login successful");
                 localStorage.setItem("user_details", JSON.stringify({ token: response?.token || "", username: response?.user, role: response?.role }));
                 navigate("/");
+            }else{
+                message.error(response?.message || "Login failed");
             }
         } catch (error) {
             console.log(error);

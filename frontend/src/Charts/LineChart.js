@@ -15,7 +15,7 @@ import {
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale);
 
 const LineChart = (props) => {
-  const { data, setIsChartOpen } = props;
+  const { data } = props;
 
   // Sort by selling price for a smooth line
   const sortedProducts = [...data].sort((a, b) => a.selling_price - b.selling_price);

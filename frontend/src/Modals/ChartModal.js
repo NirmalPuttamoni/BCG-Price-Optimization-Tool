@@ -15,6 +15,7 @@ const ChartModal = ({
     return (
         <>
             <Modal
+                className="custom-modal"
                 title="Demand Forecast"
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={isChartOpen}

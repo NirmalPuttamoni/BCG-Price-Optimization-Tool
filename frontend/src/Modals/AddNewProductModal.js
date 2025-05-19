@@ -27,6 +27,7 @@ const AddNewProductModal = ({
     return (
         <>
             <Modal
+                className="custom-modal"
                 title="Add New Products"
                 closable={{ 'aria-label': 'Custom Close Button' }}
                 open={isModalOpen}

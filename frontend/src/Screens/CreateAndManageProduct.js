@@ -21,24 +21,25 @@ const CreateAndManageProduct = () => {
   // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
 
-  const {allProducts, filteredProducts} = useSelector((state) => state.product);
+  const { allProducts, filteredProducts } = useSelector((state) => state.product);
 
   const handleChange = (event) => {
     setCategory(event);
     dispatch(setFilteredProductsByCategory(event));
   }
-  
+
   const handleBackButton = () => {
     navigate("/");
   }
-  
+
   useEffect(() => {
     const userDetails = JSON.parse(localStorage.getItem("user_details"));
     setUser(userDetails?.username);
-    
+
     const fetchData = async () => {
       try {
         const response = await GetAllProducts(navigate);
+
         if (response?.success) {
           dispatch(setProducts(response?.products))
         }
@@ -48,7 +49,7 @@ const CreateAndManageProduct = () => {
     };
 
     fetchData();
-  }, []);
+  }, [navigate, dispatch]);
 
   useEffect(() => {
     setCategory("All Categories");
@@ -66,14 +67,14 @@ const CreateAndManageProduct = () => {
   }
 
   const rowSelection = {
-  onChange: (_, selectedRowsData) => {
-    // setSelectedRowKeys(selectedRowIds); 
-    setSelectedRows(selectedRowsData);
-  },
-};
-  // console.log(selectedRows)
+    onChange: (_, selectedRowsData) => {
+      // setSelectedRowKeys(selectedRowIds); 
+      setSelectedRows(selectedRowsData);
+    },
+  };
+
   return (
-    <div className="create-and-manage-product">
+    <div className="manage-product-page">
       <Row className="nav-header">
         <Col span={21} className="green-color">
           Price Optimization Tool
@@ -101,7 +102,7 @@ const CreateAndManageProduct = () => {
               Create and Manage Product
             </Col>
             <Col style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-              <Switch defaultChecked onChange={handleSwitchChange} className="custom-switch" size="small"/>
+              <Switch defaultChecked onChange={handleSwitchChange} className="custom-switch" size="small" />
               <span>With Demand Forecast</span>
             </Col>
             <Col>
@@ -133,7 +134,7 @@ const CreateAndManageProduct = () => {
             </Col>
             <Col span={2}>
               <Select
-              className="custom-filter"
+                className="custom-filter"
                 value={"Filter"}
               />
             </Col>
@@ -146,12 +147,12 @@ const CreateAndManageProduct = () => {
           <Row gutter={16} justify="space-between" align="middle">
             <Col span={12} align="middle">
               <Button className="custom-button" onClick={() => { setIsModalOpen(true) }}>
-              <PlusCircleFilled />
+                <PlusCircleFilled />
                 Add New Products
               </Button>
             </Col>
             <Col span={12} align="middle">
-              <Button className="custom-button" onClick={ () => { setIsChartOpen(true) }}>
+              <Button className="custom-button" onClick={() => { setIsChartOpen(true) }}>
                 <CalculatorFilled />
                 Demand Forecast
               </Button>
@@ -159,9 +160,9 @@ const CreateAndManageProduct = () => {
           </Row>
         </Col>
       </Row>
-      <div className="table-container">
+      <Row className="table-container" justify="center">
         <Table rowKey="id" rowSelection={rowSelection} columns={manage_product_columns} dataSource={filteredProducts} bordered className="table" pagination={{ pageSize: 6 }} />
-      </div>
+      </Row>
       {isModalOpen && (
         <AddNewProductModal
           isModalOpen={isModalOpen}
