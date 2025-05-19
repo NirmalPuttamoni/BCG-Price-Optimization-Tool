@@ -3,6 +3,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import Logo from "../../assets/book-my-show-logo.svg";
 import { RegisterUser } from "../Api/Users";
+import { roles } from "../utils";
 
 const Register = () => {
   const [form] = Form.useForm();
@@ -116,12 +117,8 @@ const Register = () => {
             </Form.Item>
             <Form.Item label="Role" name="role">
                 <Select
-                    defaultValue="user"
-                    options={[
-                        { value: "user", label: "User" },
-                        { value: "buyer", label: "Buyer" },
-                        { value: "supplier", label: "Supplier" },
-                    ]}
+                    // defaultValue="user"
+                    options={roles}
                     onChange={(value) => {
                         form.setFieldsValue({ role: value });
                     }}

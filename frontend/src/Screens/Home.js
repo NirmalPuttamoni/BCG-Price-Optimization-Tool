@@ -1,6 +1,6 @@
 import { Row, Col } from 'antd';
 import { ArrowRightOutlined, AppstoreAddOutlined, LineChartOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 
 const Home = () => {
@@ -33,6 +33,9 @@ const Home = () => {
     };
     return (
         <div className="home-page">
+            <div className="login-link">
+                <Link to="/login" className="custom-link">Login</Link>
+            </div>
             <Row justify="center">
                 <Col span={20}>
                     <div className="container-header">

@@ -1,0 +1,5 @@
+2025-05-19 09:01:35 - fastapi - ERROR - User not found: None
+2025-05-19 09:09:58 - fastapi - INFO - User not found: None
+2025-05-19 09:09:58 - fastapi - ERROR - User not found: None
+2025-05-19 09:09:58 - fastapi - WARNING - User not found: None
+2025-05-19 09:09:58 - fastapi - CRITICAL - User not found: None

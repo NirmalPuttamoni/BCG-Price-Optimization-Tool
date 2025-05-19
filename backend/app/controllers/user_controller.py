@@ -4,8 +4,11 @@ from app.controllers.schema import UserLoginSchema, UserRegisterSchema
 from app.database.models import User
 from app.database.session import async_session
 from sqlalchemy.future import select
+from passlib.context import CryptContext
 from app.auth import create_access_token
+from app.logging_config import logger
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 user_router = APIRouter(prefix="/user")
 
 @user_router.post("/login")
@@ -21,7 +24,7 @@ async def login_user(data : UserLoginSchema):
                 return {"message": "User not found", "success": False}
 
             # Check if the password is correct
-            if user.password != data.password:
+            if not pwd_context.verify(data.password, user.password):
                 return {"message": "Incorrect password", "success": False}
 
             # Create JWT token 
@@ -37,7 +40,7 @@ async def login_user(data : UserLoginSchema):
             }
 
     except Exception as e:
-        print("Error:", e)
+        logger.error("Error in login_user: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -52,17 +55,20 @@ async def register_user(data : UserRegisterSchema):
             if existing_user.scalars().first():
                 return {"message": f"User {data.username} already exists", "success": True}
 
+            # Hash the password
+            hashed_password = pwd_context.hash(data.password)
+
             # Create a new user
             new_user = User(
                 username=data.username,
                 email=data.email,
                 role=data.role,
-                password=data.password,
+                password=hashed_password,
             )
             session.add(new_user)
             await session.commit()
             return {"message": f"User {data.username} registered successfully", "success": True}
     except Exception as e:
-        print("Error:", e)
+        logger.info("Error in register_user: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 

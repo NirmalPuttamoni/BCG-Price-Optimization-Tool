@@ -5,6 +5,7 @@ from app.database.models import Product
 from app.database.session import async_session
 from sqlalchemy.future import select
 from app.auth import verify_token
+from app.logging_config import logger
 
 product_router = APIRouter(prefix="/product")
 
@@ -36,7 +37,7 @@ async def add_product(data: ProductSchema, user_data: Annotated[dict, Depends(ve
             await session.commit()
             return {"message": f"Product {data.name} added successfully", "success": True}
     except Exception as e:
-        print("Error:", e)
+        logger.error("Error in add_product: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
 @product_router.get("/get-products")
@@ -47,7 +48,7 @@ async def get_products(user_data: Annotated[dict, Depends(verify_token)]):
             products = products.scalars().all()
             return {"products": products, "success": True}
     except Exception as e:
-        print("Error:", e)
+        logger.error("Error in get_products: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
 
@@ -78,7 +79,7 @@ async def update_product(product_id: int, data: ProductSchema, user_data: Annota
             await session.commit()
             return {"message": f"Product {data.name} updated successfully", "success": True}
     except Exception as e:
-        print("Error:", e)
+        logger.error("Error in update_product: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
     
 @product_router.delete("/delete-product/{product_id}")
@@ -98,5 +99,5 @@ async def delete_product(product_id: int, user_data: Annotated[dict, Depends(ver
             await session.commit()
             return {"message": f"Product with ID {product_id} deleted successfully", "success": True}
     except Exception as e:
-        print("Error:", e)
+        logger.error("Error in delete_product: %s", e)
         raise HTTPException(status_code=500, detail="Internal Server Error")

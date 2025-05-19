@@ -49,9 +49,9 @@ export const pricing_optimization_columns = [
 ];
 
 const handleDelete = async (id) => {
-  
+
   console.log("Delete product with id:", id);
-  
+
   Modal.confirm({
     title: 'Are you sure you want to delete this product?',
     onOk: async () => {
@@ -141,3 +141,9 @@ export const manage_product_columns = [
     }
   },
 ];
+
+export const roles = [
+  { value: "user", label: "User" },
+  { value: "buyer", label: "Buyer" },
+  { value: "supplier", label: "Supplier" },
+]

@@ -8,7 +8,7 @@ export const RegisterUser = async (value) => {
         const response = await axiosInstance.post("/api/user/register", value);
         return response.data;
     } catch (error) {
-        console.log("err : ", error?.response?.data);
+        console.log("error : ", error?.response?.data);
         return message.error(error?.response?.data?.message);
     }
 }
@@ -18,7 +18,7 @@ export const LoginUser = async (values) => {
         const response = await axiosInstance.post("/api/user/login", values);
         return response.data;
     } catch (error) {
-        console.log("err : ", error?.response?.data);
+        console.log("error : ", error?.response?.data);
         return error?.response?.data?.message;
     }
 }
